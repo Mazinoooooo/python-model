@@ -22,7 +22,7 @@ model_columns = joblib.load("model_columns.joblib")
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "https://capstone-195b7.web.app/", "https://capstone-195b7.firebaseapp.com/"],  # replace with your deployed frontend
+    allow_origins=["http://localhost:5173", "https://capstone-195b7.web.app", "https://capstone-195b7.firebaseapp.com"],  # replace with your deployed frontend
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
