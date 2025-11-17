@@ -113,7 +113,7 @@ class PromptRequest(BaseModel):
 
 @app.post("/generate/")
 async def generate_content(req: PromptRequest):
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent?key={GEMINI_API_KEY}"
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={GEMINI_API_KEY}"
     payload = {"contents": [{"parts": [{"text": req.prompt}]}]}
 
     async with httpx.AsyncClient(timeout=30) as client:
