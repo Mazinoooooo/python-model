@@ -11,6 +11,7 @@ from dotenv import load_dotenv
 # Load environment variables
 load_dotenv()
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+print("GEMINI_API_KEY:", GEMINI_API_KEY)
 
 # Load trained model and encoders
 model = joblib.load("cousin_group_model.joblib")
@@ -112,10 +113,14 @@ class PromptRequest(BaseModel):
 
 @app.post("/generate/")
 async def generate_content(req: PromptRequest):
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={GEMINI_API_KEY}"
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent?key={GEMINI_API_KEY}"
     payload = {"contents": [{"parts": [{"text": req.prompt}]}]}
 
     async with httpx.AsyncClient(timeout=30) as client:
         response = await client.post(url, json=payload)
         response.raise_for_status()
         return response.json()
+
+@app.get("/")
+def root():
+    return {"status": "FastAPI is running!"}
